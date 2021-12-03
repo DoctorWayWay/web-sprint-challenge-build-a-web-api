@@ -23,6 +23,18 @@ function validateNewProject(req, res, next) {
   }
 }
 
+function validateUpdatedProject(req, res, next) {
+  const { name, description, completed } = req.body
+  if (name && description && (completed !== undefined)) {
+    next()
+  } else {
+    next({
+      status: 400,
+      message: "Please provide a name, description, and completed status to your project."
+    })
+  }
+}
+
 function handleError(err, req, res, next) {
   res.status(err.status || 500).json({
     message: `${err.message}`
@@ -32,5 +44,6 @@ function handleError(err, req, res, next) {
 module.exports = {
   validateProjectId,
   validateNewProject,
+  validateUpdatedProject,
   handleError,
 }

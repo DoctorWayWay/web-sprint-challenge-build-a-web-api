@@ -5,6 +5,7 @@ const Projects = require("./projects-model")
 const {
   validateProjectId,
   validateNewProject,
+  validateUpdatedProject,
   handleError,
 } = require("./projects-middleware")
 
@@ -38,6 +39,17 @@ router.post("/", validateNewProject, async (req, res, next) => {
   try {
     const newProject = await Projects.insert(req.body)
     res.status(201).json(newProject)
+  } catch (error) {
+    next(error)
+  }
+})
+
+// [PUT] /api/projects/:id (updates & returns a post by id)
+router.put("/:id", validateProjectId, validateUpdatedProject, async (req, res, next) => {
+  try {
+    const { id } = req.params
+    const updatedProject = await Projects.update(id, req.body)
+    res.status(200).json(updatedProject)
   } catch (error) {
     next(error)
   }
