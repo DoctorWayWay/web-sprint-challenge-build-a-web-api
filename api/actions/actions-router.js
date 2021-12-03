@@ -55,6 +55,16 @@ router.put("/:id", validateActionsId, validateUpdatedAction, async (req, res, ne
   }
 })
 
+// [DELETE] /api/actions/:id (removes action, returns nothing)
+router.delete("/:id", validateActionsId, async (req, res, next) => {
+  try {
+    await Actions.remove(req.params.id)
+    next()
+  } catch (error) {
+    next(error)
+  }
+})
+
 // Error MiddleWare
 router.use(handleError)
 

@@ -55,7 +55,7 @@ router.put("/:id", validateProjectId, validateUpdatedProject, async (req, res, n
   }
 })
 
-// [DELETE] /api/projects/:id (returns nothing)
+// [DELETE] /api/projects/:id (removes project, returns nothing)
 router.delete("/:id", validateProjectId, async (req, res, next) => {
   try {
     await Projects.remove(req.params.id)
