@@ -2,6 +2,9 @@
 // ===== IMPORTS =====
 const express = require("express")
 const Actions = require("./actions-model")
+const {
+  validateActionsId,
+} = require("./actions-middlware")
 const { handleError } = require("../general-middleware/middleware")
 
 // ===== INSTANCE OF EXPRESS =====
@@ -13,6 +16,17 @@ router.get("/", async (req, res, next) => {
   try {
     const allActions = await Actions.get()
     res.status(200).json(allActions)
+  } catch (error) {
+    next(error)
+  }
+})
+
+// [GET] /api/actions/:id (returns a specific action)
+router.get("/:id", validateActionsId, async (req, res, next) => {
+  try {
+    const { id } = req.params
+    const action = await Actions.get(id)
+    res.status(200).json(action)
   } catch (error) {
     next(error)
   }

@@ -23,7 +23,7 @@ router.get("/", async (req, res, next) => {
   }
 })
 
-// [GET] /api/projects/:id (returns a specific)
+// [GET] /api/projects/:id (returns a specific project)
 router.get("/:id", validateProjectId, async (req, res, next) => {
   try {
     const { id } = req.params
