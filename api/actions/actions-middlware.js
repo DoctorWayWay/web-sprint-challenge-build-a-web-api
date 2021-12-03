@@ -28,7 +28,20 @@ function validateNewAction(req, res, next) {
   }
 }
 
+function validateUpdatedAction(req, res, next) {
+  const { project_id, description, notes, completed } = req.body
+  if (project_id && description && notes && (completed !== undefined)) {
+    next()
+  } else {
+    next({
+      status: 400,
+      message: "Please provide a project_id, notes, a description, and a completed status to your action."
+    })
+  }
+}
+
 module.exports = {
   validateActionsId,
   validateNewAction,
+  validateUpdatedAction,
 }

@@ -3,6 +3,7 @@
 const express = require("express")
 const Actions = require("./actions-model")
 const {
+  validateUpdatedAction,
   validateActionsId,
   validateNewAction,
 } = require("./actions-middlware")
@@ -38,6 +39,17 @@ router.post("/", validateNewAction, async (req, res, next) => {
   try {
     const newAction = await Actions.insert(req.body)
     res.status(201).json(newAction)
+  } catch (error) {
+    next(error)
+  }
+})
+
+// [PUT] /api/actions/:id (updates & returns an action by id)
+router.put("/:id", validateActionsId, validateUpdatedAction, async (req, res, next) => {
+  try {
+    const { id } = req.params
+    const updatedAction = await Actions.update(id, req.body)
+    res.status(200).json(updatedAction)
   } catch (error) {
     next(error)
   }
