@@ -65,6 +65,18 @@ router.delete("/:id", validateProjectId, async (req, res, next) => {
   }
 })
 
+// [GET] /api/projects/:id/actions (returns project's actions by id)
+router.get("/:id/actions", validateProjectId, async (req, res, next) => {
+  try {
+    const { id } = req.params
+    const projectActions = await Projects.getProjectActions(id)
+    res.status(200).json(projectActions)
+  } catch (error) {
+    next(error)
+  }
+})
+
+
 // Error MiddleWare
 router.use(handleError)
 
