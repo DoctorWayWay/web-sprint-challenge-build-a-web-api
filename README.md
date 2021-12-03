@@ -144,10 +144,18 @@ We have provided test data for all the resources.
 
 ## Interview Questions
 
-Be prepared to demonstrate your understanding of this week's concepts by answering questions on the following topics. You might prepare by writing down your own answers before hand.
+Be prepared to demonstrate your understanding of this week's concepts by answering questions on the following topics. You may prepare by writing down your own answers before hand.
 
 1. The core features of Node.js and Express and why they are useful.
+- `Node.js` allows developers to program with JavaScript outside of a web browser, which it couldn't before. `Express` allows developers to create more modularized projects with `Node.js`, along with the ability to use middleware, which adds even more modularity.
 2. Understand and explain the use of Middleware.
+- Middleware is similar to methods in JavaScript class components. They are used to perform functions for a component, without actually being inside of it (like a middleman in an arrangement). They are great for modularizing one's code.
 3. The basic principles of the REST architectural style.
+- Everything is a resource that is accessible by a unique URL
+- Resources can have more than one representation
+- Communitcation happens over `HTTP`s
+- Resources are managed using `HTTP` methods
 4. Understand and explain the use of Express Routers.
+- The `Express` router greatly helps with modularizing `HTTP`s. Instead of having a bunch of `HTTP`s on a single server file, one could instead use the router provided by `Express` to break up the requests related to eahcother in seperate routes.
 5. Describe tooling used to manually test the correctness of an API.
+- One could use Postman, which essentially functions as a GUI for testing HTTP requests. Another tool, which I prefer, is called HTTPie, and it basically has the same functionality as Postman. One thing I like about HTTPie is that it runs in the terminal, which is convenient.
