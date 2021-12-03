@@ -1,9 +1,13 @@
 // ===== IMPORTS =====
 require('dotenv').config()
 const express = require('express')
+const projectsRouter = require("./projects/projects-router")
 
 // ===== INSTANCE OF EXPRESS =====
 const server = express()
+
+// ===== ROUTES =====
+server.use("/api/projects", projectsRouter)
 
 // ===== MIDDLEWARE =====
 server.use(express.json())
