@@ -11,6 +11,18 @@ async function validateProjectId(req, res, next) {
   }
 }
 
+function validateNewProject(req, res, next) {
+  const { name, description } = req.body
+  if (name && description) {
+    next()
+  } else {
+    next({
+      status: 400,
+      message: "Please provide a name and description to your project."
+    })
+  }
+}
+
 function handleError(err, req, res, next) {
   res.status(err.status || 500).json({
     message: `${err.message}`
@@ -19,5 +31,6 @@ function handleError(err, req, res, next) {
 
 module.exports = {
   validateProjectId,
+  validateNewProject,
   handleError,
 }

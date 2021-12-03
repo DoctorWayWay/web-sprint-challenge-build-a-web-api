@@ -4,7 +4,8 @@ const express = require("express")
 const Projects = require("./projects-model")
 const {
   validateProjectId,
-  handleError
+  validateNewProject,
+  handleError,
 } = require("./projects-middleware")
 
 // ===== INSTANCE OF EXPRESS =====
@@ -27,6 +28,16 @@ router.get("/:id", validateProjectId, async (req, res, next) => {
     const { id } = req.params
     const project = await Projects.get(id)
     res.status(200).json(project)
+  } catch (error) {
+    next(error)
+  }
+})
+
+// [POST] /api/projects (posts & returns new project)
+router.post("/", validateNewProject, async (req, res, next) => {
+  try {
+    const newProject = await Projects.insert(req.body)
+    res.status(201).json(newProject)
   } catch (error) {
     next(error)
   }

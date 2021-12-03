@@ -6,11 +6,11 @@ const projectsRouter = require("./projects/projects-router")
 // ===== INSTANCE OF EXPRESS =====
 const server = express()
 
-// ===== ROUTES =====
-server.use("/api/projects", projectsRouter)
-
 // ===== MIDDLEWARE =====
 server.use(express.json())
+
+// ===== ROUTES =====
+server.use("/api/projects", projectsRouter)
 
 // Configure your server here
 // Build your actions router in /api/actions/actions-router.js
