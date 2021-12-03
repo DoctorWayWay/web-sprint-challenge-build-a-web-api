@@ -6,8 +6,8 @@ const {
   validateProjectId,
   validateNewProject,
   validateUpdatedProject,
-  handleError,
 } = require("./projects-middleware")
+const { handleError } = require("../general-middleware/middleware")
 
 // ===== INSTANCE OF EXPRESS =====
 const router = express.Router()
@@ -50,6 +50,16 @@ router.put("/:id", validateProjectId, validateUpdatedProject, async (req, res, n
     const { id } = req.params
     const updatedProject = await Projects.update(id, req.body)
     res.status(200).json(updatedProject)
+  } catch (error) {
+    next(error)
+  }
+})
+
+// [DELETE] /api/projects/:id (returns nothing)
+router.delete("/:id", validateProjectId, async (req, res, next) => {
+  try {
+    await Projects.remove(req.params.id)
+    next()
   } catch (error) {
     next(error)
   }
