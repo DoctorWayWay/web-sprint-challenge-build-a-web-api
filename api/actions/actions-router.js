@@ -4,6 +4,7 @@ const express = require("express")
 const Actions = require("./actions-model")
 const {
   validateActionsId,
+  validateNewAction,
 } = require("./actions-middlware")
 const { handleError } = require("../general-middleware/middleware")
 
@@ -27,6 +28,16 @@ router.get("/:id", validateActionsId, async (req, res, next) => {
     const { id } = req.params
     const action = await Actions.get(id)
     res.status(200).json(action)
+  } catch (error) {
+    next(error)
+  }
+})
+
+// [POST] /api/actions (posts & returns new action)
+router.post("/", validateNewAction, async (req, res, next) => {
+  try {
+    const newAction = await Actions.insert(req.body)
+    res.status(201).json(newAction)
   } catch (error) {
     next(error)
   }

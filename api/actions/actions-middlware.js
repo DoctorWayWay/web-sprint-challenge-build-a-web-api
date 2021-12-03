@@ -11,6 +11,24 @@ async function validateActionsId(req, res, next) {
   }
 }
 
+function validateNewAction(req, res, next) {
+  const { project_id, description, notes } = req.body
+  if (description.toString().length > 128) {
+    next({
+      status: 400,
+      message: "Description must be under 129 characters"
+    })
+  } else if (project_id && description && notes) {
+    next()
+  } else {
+    next({
+      status: 400,
+      message: "Please provide a project_id, notes, and a description to your action."
+    })
+  }
+}
+
 module.exports = {
   validateActionsId,
+  validateNewAction,
 }
